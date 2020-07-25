@@ -76,21 +76,6 @@
 </div>
 
 <script>
-	// var table1 = $('#aviable_room').DataTable();
-	// var table2 = $('#selected_room').DataTable();
-	$('#table_aviable tbody').on('click', 'btn_pilih', function() {
-		var row = table1.row($(this).parents('tr'));
-		var rowNode = row.node();
-		row.remove();
-		table2.row.add(rowNode).draw();
-	});
-
-
-
-
-
-
-
 	$(document).ready(function() {
 		//Data Aviable Room
 		var table;
@@ -116,6 +101,15 @@
 		$('#type_room').on('change', function() {
 			var type_room = $(this).val();
 			table.ajax.reload();
+		});
+
+		// var table1 = $('#aviable_room').DataTable();
+		// var table2 = $('#selected_room').DataTable();
+		$('#table_aviable tbody').on('click', 'btn_pilih', function() {
+			var row = table1.row($(this).parents('tr'));
+			var rowNode = row.node();
+			row.remove();
+			table2.row.add(rowNode).draw();
 		});
 
 	})
