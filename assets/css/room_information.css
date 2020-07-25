@@ -1,0 +1,99 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.navbar{
+    z-index: 1;
+    box-shadow: 0 3px 7px rgba(0,0,0,0.2);
+}
+
+.navbar .container{
+    opacity: 0.9;
+}
+.navbar-brand{
+    font-family: 'Montserrat';
+    font-size: 32px;
+    font-weight: bold;
+    color: #009423 !important;
+    transition: 1s;
+}
+
+.nav-link{
+    text-transform: uppercase;
+    font-size: 15px;
+    margin-right: 20px;
+    margin-left: 10px;
+    z-index: 1;
+    font-family: 'Roboto';
+}
+
+.judul{
+    margin-top: 10px;
+    color: #FF9100;
+    font-weight: bold;
+}
+.judul1{
+    margin-top: 10px;
+    color: #FF9100;
+}
+
+.room{
+    margin-top: 100px;
+}
+
+p{
+    color: #7E7E7E;
+}
+
+
+.warna{
+
+    color: #FF9100;
+}
+
+.warna3{
+
+    color: #7E7E7E;
+}
+
+.warna3:hover{
+
+    color: #7E7E7E;
+}
+
+.warna2{
+    background-color: #FF9100;
+    color: white;
+}
+
+#navigation-bar a {
+    text-decoration: none;
+    position: relative;
+    transition: all 0.4s ease;
+ }
+#navigation-bar a::before {
+    content: "";
+    transition: all 0.4s ease-in-out;
+    position: absolute;
+    right: 50%;
+    left: 50%;
+    bottom: 0;
+    height: 2px;
+    color: white;
+    background-color: #FF9100;
+}
+#navigation-bar a:hover::before {
+    right: 0;
+    left: 0;
+    color: white;
+}
+
+#navigarion-bar a:hover{
+    color: white;
+}
+
+/* 
+#FF9100 warna kuning
+
+#7E7E7E warna abu2*/

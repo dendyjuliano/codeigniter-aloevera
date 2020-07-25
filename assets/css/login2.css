@@ -1,0 +1,43 @@
+
+.kotak{
+    border-radius: 7px;
+    margin-top: 100px;
+}
+
+.button .buton{
+    background-color: #FF9100;
+    color: white;
+    border-radius: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.judul{
+    font-family: Montserrat;
+    font-size: 25px;
+    font-weight: bold;
+    color: #009432;
+}
+
+.card .display-4{
+    font-size: 25px;
+    color: #acacac;
+}
+
+.form-group{
+    color: #ffffff;
+}
+
+
+
+.bebas{
+    color: #FF9100;
+}
+
+.btn .buton{
+    background-color: #DDA520;
+}
+
+.form-control:active{
+    
+}

@@ -1,0 +1,172 @@
+body{
+    background-color: #F1F1F1;
+}
+
+.jumbotron{
+    background-image: url(../img/img1.jpg);
+    background-size: cover;
+    background-position: 0 -100px;
+    height: 400px;
+    position: relative;
+    z-index: 0;
+    
+}
+
+.jumbotron h5{
+    margin-top: 190px;
+    font-weight: bold;
+    color: white;
+}
+
+.jumbotron p{
+    color: white;
+    font-size: 15px;
+}
+
+.jumbotron span{
+    font-weight: bold;
+}
+
+.jumbotron .container{
+    position: relative;
+    z-index: 1;
+}
+
+.jumbotron::after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+    position: absolute;
+    bottom: 0;
+}
+
+.jumbotron .display-4{
+    color: white;
+    margin-top: 90px;
+    font-weight: 200;
+    text-shadow: 1px 1px 1px rgba(0,0,0,7);
+    font-size: 50px;
+    margin-bottom: 30px;
+}
+
+.infopanel1{
+    background-color: #FF9100;
+    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    overflow: hidden;
+    margin-top: -33px;
+}
+
+.info-panel{
+    padding-top: 10px;
+    background-color: white;
+    padding-bottom: 5px;
+    padding-left: 40px;
+    padding-right: 40px;
+    overflow: hidden;
+}
+.buton{
+    background-color: #FF9100;
+    color: white;
+    border-radius: 4px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 5px;
+}
+.buton3{
+    background-color: rgb(242, 242, 242);
+    color: #FF9100;
+    border-radius: 4px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 5px;
+}
+.buton4{
+    background-color: #FF9100;
+    color: white;
+    border-radius: 4px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.nav-link{
+    text-transform: uppercase;
+    margin-right: 30px;
+    margin-left: 50px;
+    font-weight: bold;
+}
+
+.card-header{
+    background-color: #009432;
+    color: white;
+}
+
+
+.cari{
+    margin-top: 20px;
+    background-color: white;
+    padding: 5px;
+}
+
+.buton2{
+    background-color: #FF9100;
+    color: white;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: small;
+    margin-top: 30px;
+}
+
+.hotel{
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.label{
+    font-weight: bold;
+    font-size: 15px;
+    color: #616161;
+}
+
+.judul{
+    padding-top: 10px;
+}
+
+.page-footer{
+    background-color: #FF9100;
+}
+
+.warna{
+    color: #FF9100;
+}
+.warna2{
+    background-color: #FF9100;
+    color: white;
+}
+
+.warna3{
+    color: #7e7e7e;
+}
+
+@media (min-width: 992px) {
+    
+    .card1{
+        position: absolute;
+        top: 0;
+        margin-top: -2250px;
+    }
+    
+    
+    
+    .sticky{
+        z-index: 1;
+        position: fixed;
+        top: 0;
+    }
+}

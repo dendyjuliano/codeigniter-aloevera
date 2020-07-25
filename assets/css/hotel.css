@@ -1,0 +1,69 @@
+body{
+    background-color: #F1F1F1;
+}
+
+.tampil{
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+
+.tampil p{
+    color: #FF9100;
+}
+.tampil img{
+    border-radius: 10px;
+}
+.navbar .navbar-brand{
+    font-family: Montserrat;
+    font-size: 32px;
+    font-weight: bold;
+    color: #FF9100;
+}
+
+
+.buton{
+    background-color: #FF9100;
+    color: white;
+    border-radius: 4px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 5px;
+}
+.buton2{
+    background-color: #FF9100;
+    color: white;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: small;
+}
+
+.nav-link{
+    text-transform: uppercase;
+    margin-right: 30px;
+    margin-left: 50px;
+    font-weight: bold;
+}
+
+#navigation-bar a {
+    text-decoration: none;
+    position: relative;
+    transition: all 0.4s ease;
+ }
+#navigation-bar a::before {
+    content: "";
+    transition: all 0.4s ease-in-out;
+    position: absolute;
+    right: 50%;
+    left: 50%;
+    bottom: 0;
+    height: 2px;
+    background-color: #FF9100;
+}
+#navigation-bar a:hover::before {
+    right: 0;
+    left: 0;
+}

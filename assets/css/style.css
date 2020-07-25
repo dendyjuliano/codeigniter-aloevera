@@ -1,0 +1,411 @@
+html{
+    scroll-behavior: smooth;
+}
+
+.navbar{
+    z-index: 1;
+    background-color: transparent;   
+}
+
+.navbar .container{
+    opacity: 0.9;
+}
+
+.carousel{
+    z-index: 0;
+}
+.carousel img{
+    height: 700px;
+}
+
+.carousel-caption{
+    margin-bottom: 250px;
+}
+
+
+.carousel-caption .display-4{
+    font-weight: 200;
+    text-shadow: 1px 1px 1px rgba(0,0,0,7);
+    font-size: 80px;
+}
+
+.navbar-brand{
+    font-family: 'Montserrat';
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    transition: 1s;
+}
+
+.carousel::after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+    position: absolute;
+    bottom: 0;
+}
+
+/* .check{
+	z-index: 3;
+} */
+
+
+/* .jumbotron{
+    background-image: url(../img/slider3.jpg);
+    background-size: cover;
+    height: 620px;
+    position: relative;
+    z-index: 0;
+}
+
+.jumbotron h5{
+    margin-top: 190px;
+    font-weight: bold;
+    color: white;
+}
+
+.jumbotron p{
+    color: white;
+    font-size: 25px;
+}
+
+.jumbotron span{
+    font-weight: bold;
+}
+
+.jumbotron .container{
+    position: relative;
+    z-index: 1;
+}
+
+.jumbotron::after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+    position: absolute;
+    bottom: 0;
+}
+
+.jumbotron .display-4{
+    color: white;
+    margin-top: 117px;
+    font-weight: 200;
+    text-shadow: 1px 1px 1px rgba(0,0,0,7);
+    font-size: 50px;
+    margin-bottom: 30px;
+} */
+
+.buton2{
+    background-color: #FF9100;
+    color: white;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 35px;
+    font-size: small;
+}
+.buton{
+    background-color: #FF9100;
+    color: white;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.putih .navbar-brand{
+    font-family: Montserrat;
+    font-size: 25px;
+    font-weight: bold;
+    transition: .8s;
+    color: #009432 !important;
+}
+
+.warna{
+    color: #FF9100;
+}
+.warna2{
+    background-color: #FF9100;
+    color: white;
+}
+
+.warna3{
+    color: #7e7e7e;
+}
+.warna3:hover{
+
+    color: #7E7E7E;
+    
+}
+.warna4{
+    color: #009432 ;
+}
+
+.ml2 {
+    font-weight: 900;
+    font-size: 3.5em;
+  }
+  
+  .ml2 .letter {
+    display: inline-block;
+    line-height: 1em;
+  }
+
+  .ml11 {
+    font-weight: 700;
+    font-size: 3.5em;
+  }
+  
+  .ml11 .text-wrapper {
+    position: relative;
+    display: inline-block;
+    padding-top: 0.1em;
+    padding-right: 0.05em;
+    padding-bottom: 0.15em;
+  }
+  
+  .ml11 .line {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 3px;
+    background-color: rgb(255, 255, 255);
+    transform-origin: 0 50%;
+  }
+  
+  .ml11 .line1 { 
+    top: 0; 
+    left: 0;
+  }
+  
+  .ml11 .letter {
+    display: inline-block;
+    line-height: 1em;
+  }
+  
+
+.info-panel{
+    padding-top: 30px;
+    background-color: white;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    /* overflow: hidden; */
+    border-radius: 20px;
+    margin-top: -200px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.5);
+}
+
+.workingspace{
+    margin-top: 120px;
+    text-align: center;
+}
+
+.workingspace img{
+    border-radius: 10px;
+}
+
+.workingspace h3{
+    margin-top: 30px;
+    font-size: 52px;
+    font-weight: 200;
+    text-transform: uppercase;
+}
+
+.workingspace p{
+    font-size: 18px;
+    color: #ACACAC;
+    font-weight: 200;
+    margin: 30px 0;
+}
+
+.workingspace h3 span{
+    font-weight: 500;
+}
+
+.content1{
+    margin-top: 100px;
+}
+
+.content1 .isi{
+    color: #7e7e7e;
+}
+.content1 p{
+    font-size: 16px;
+    color: #ACACAC;
+    font-weight: 200;
+    margin: 30px 0;
+}
+
+.informasi h3{
+    margin-top: 130px;
+    font-size: 30px;
+    font-weight: 200;
+    text-transform: uppercase;
+}
+
+.informasi .judul1{
+    color: #009432;
+}
+
+.garis1{
+    width: 6%;
+    background-color:#FF9100 ;
+    height: 5px;
+}
+
+.informasi .icon{
+    font-size: 50px;
+    color: #009432;
+}
+.informasi .icon2{
+    color: #FF9100;
+}
+.informasi .icon3{
+    color: #7e7e7e;
+}
+.ml5 {
+    position: relative;
+    font-weight: 300;
+    font-size: 4.5em;
+    color: #fff;
+  }
+  
+  .ml5 .text-wrapper {
+    position: relative;
+    display: inline-block;
+    padding-top: 0.1em;
+    padding-right: 0.05em;
+    padding-bottom: 0.15em;
+    line-height: 1em;
+  }
+  
+  .ml5 .line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+    transform-origin: 0.5 0;
+  }
+  
+  .ml5 .ampersand {
+    font-family: Baskerville, "EB Garamond", serif;
+    font-style: italic;
+    font-weight: 400;
+    width: 1em;
+    margin-right: -0.1em;
+    margin-left: -0.1em;
+  }
+  
+  .ml5 .letters {
+    display: inline-block;
+    opacity: 0;
+  }
+  .ml14 {
+    font-weight: 200;
+    font-size: 3.2em;
+  }
+  
+  .ml14 .text-wrapper2 {
+    position: relative;
+    display: inline-block;
+    padding-top: 0.1em;
+    padding-right: 0.05em;
+    padding-bottom: 0.15em;
+  }
+  
+  .ml14 .line2 {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #fff;
+    transform-origin: 100% 100%;
+    bottom: 0;
+  }
+  
+  .ml14 .letter2 {
+    display: inline-block;
+    line-height: 1em;
+    color: #fff;
+  }
+
+
+
+
+/* DEKSTOP VERSI */
+@media (min-width: 992px) {
+    
+    .nav-link{
+        color: white !important;
+        text-transform: uppercase;
+        margin-right: 40px;
+        margin-left: 10px;
+        z-index: 1;
+        font-family: 'Roboto';
+    }
+
+    .info-panel{
+        padding-top: 30px;
+        background-color: white;
+        padding-bottom: 20px;
+        padding-left: 30px;
+        padding-right: 30px;
+        /* overflow: hidden; */
+        border-radius: 20px;
+        margin-top: -70px;
+        box-shadow: 0 3px 20px rgba(0,0,0,0.5);
+    }
+    
+
+    .putih .nav-link{
+        text-transform: uppercase;
+        margin-right: 20px;
+        margin-left: 30px;
+        font-size: 15px;
+        color: #7e7e7e !important;
+        z-index: 1;
+    }
+
+    .putih{
+        border-radius: 0 0 20px 20px;
+        box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+    }
+
+    #navigation-bar a {
+        text-decoration: none;
+        position: relative;
+        transition: all 0.4s ease;
+     }
+    #navigation-bar a::before {
+        content: "";
+        transition: all 0.4s ease-in-out;
+        position: absolute;
+        right: 50%;
+        left: 50%;
+        bottom: 0;
+        height: 2px;
+        color: white;
+        background-color: #FF9100;
+    }
+    #navigation-bar a:hover::before {
+        right: 0;
+        left: 0;
+        color: white;
+    }
+
+    #navigarion-bar a:hover{
+        color: white;
+    }
+
+    
+}

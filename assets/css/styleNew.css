@@ -1,0 +1,54 @@
+.kasur{
+	font-size: 50px;
+}
+
+.kode{
+	margin-top: -15px;
+	/* margin-top: -50px;
+	position: relative; */
+	font-size: 15px;
+	/* color:#4b6584; */
+	font-weight: bold;
+}
+
+.kode-k{
+	font-size: 19px;
+}
+
+.nama-kamar{
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.warna1{
+	padding: 12px;
+	border-radius: 5px;
+	background-color: #26de81;
+	margin-right: 10px;
+}
+.warna2{
+	padding: 12px;
+	border-radius: 5px;
+	background-color: #eb3b5a;
+	margin-right: 10px;
+}
+.warna3{
+	padding: 12px;
+	border-radius: 5px;
+	background-color: #3867d6;
+	margin-right: 10px;
+}
+.warna4{
+	padding: 12px;
+	border-radius: 5px;
+	background-color: #fed330;
+	margin-right: 10px;
+}
+
+
+/* new Input Modal */
+
+
+
+/* Accordion */
+
