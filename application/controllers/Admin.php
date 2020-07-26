@@ -23,9 +23,9 @@ class Admin extends CI_Controller
 		foreach ($supporter as $item) {
 			// $no++;
 			$row = [];
-			$row[] = '<div class="form-check">
-			<input class="form-check-input position-static" type="checkbox" id="check">
-		  </div>';
+			// 	$row[] = '<div class="form-check">
+			// 	<input class="form-check-input position-static" type="checkbox" id="check-' . $no++ . '">
+			//   </div>';
 			// Pengisian array sesuai urutan pada table di html
 			$row[] = $item->kode_kamar;
 			$row[] = $item->nama_kamar;
