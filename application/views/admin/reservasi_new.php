@@ -91,7 +91,7 @@
 		var table;
 		var table2;
 		table = $('#table_aviable').DataTable({
-			"processing": true,
+			// "processing": true,
 			"serverSide": true,
 			"paging": false,
 			"ordering": false,

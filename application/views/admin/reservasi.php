@@ -7,11 +7,10 @@
 	</div>
 
 	<!-- Content Row -->
-	<div class="row">
+	<!-- <div class="row">
 
 
 
-		<!-- Earnings (Monthly) Card Example -->
 		<div class="col-xl-3 col-md-6 mb-4">
 			<div class="card border-left-success shadow h-100 py-2">
 				<div class="card-body">
@@ -28,7 +27,6 @@
 			</div>
 		</div>
 
-		<!-- Earnings (Monthly) Card Example -->
 		<div class="col-xl-3 col-md-6 mb-4">
 			<div class="card border-left-info shadow h-100 py-2">
 				<div class="card-body">
@@ -50,7 +48,6 @@
 		</div>
 
 
-		<!-- Earnings (Monthly) Card Example -->
 		<div class="col-xl-3 col-md-6 mb-4">
 			<div class="card border-left-danger shadow h-100 py-2">
 				<div class="card-body">
@@ -67,7 +64,6 @@
 			</div>
 		</div>
 
-		<!-- Pending Requests Card Example -->
 		<div class="col-xl-3 col-md-6 mb-4">
 			<div class="card border-left-danger shadow h-100 py-2">
 				<div class="card-body">
@@ -83,7 +79,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<!-- Content Row -->
 	<div class="flash-data3" data-flashdata3="<?= $this->session->flashdata('flash3'); ?>"></div>
@@ -148,7 +144,7 @@
 				<?php endif; ?>
 			</div>
 		</div> -->
-		<div class="col-xl-8 col-lg-7">
+		<div class="col-xl-12 col-lg-12">
 			<div class="card shadow mb-4">
 				<!-- Card Header - Dropdown -->
 				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -163,9 +159,13 @@
 								$no = 0;
 								$no2 = 0;
 								$no3 = 0;
+								$no4 = 0;
 								foreach ($room as $row) :  ?>
-									<div class="col-md-4 room-view">
+									<div class="col-md-3 room-view">
 										<div class="dropdown no-arrow text-center">
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" value="<?= $row['kode_kamar'] ?>" data-id="<?= $row['kode_kamar'] ?>" id="pilih-<?= $no4++ ?>">
+											</div>
 											<a class="dropdown-toggle kasur text-decoration-none" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 												<?php if ($row['status'] == 1) : ?>
 													<i class="fas fa-bed fa-fw text-success"></i>
@@ -220,7 +220,7 @@
 														<a class="dropdown-item" href="#">NIK :<?= $user['nik'] ?></a>
 														<a class="dropdown-item" href="#">Nama :<?= $user['nama'] ?></a>
 														<a class="dropdown-item" href="#">Kode Reservasi :<?= $user['kode_reservasi'] ?></a>
-														<p id="reservasi_code-<?= $no3++ ?>"><?= $user['kode_reservasi'] ?></p>
+														<!-- <p id="reservasi_code-<?= $no3++ ?>"><?= $user['kode_reservasi'] ?></p> -->
 														<a class="dropdown-item" href="#">Checkin : <?= strftime("%A %d %B %Y", strtotime($user['checkin_date'])) ?></a>
 														<a class="dropdown-item" href="#">Checkout : <?= strftime("%A %d %B %Y", strtotime($user['checkout_date'])) ?></a>
 														<a class="dropdown-item" href="#">Order Date : <?= strftime("%A %d %B %Y", strtotime($user['tanggal'])) ?></a>
@@ -237,7 +237,7 @@
 							</div>
 						</div>
 						<!-- Color Description -->
-						<div class="col-md-2 pl-3">
+						<div class="col-md-2 pl-5">
 							<div class="row">
 								<div class="warna1"></div>
 								Kosong
@@ -259,6 +259,9 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="card-footer py-3 d-flex flex-row align-items-center justify-content-between">
+					<button class="btn btn-primary btn-sm" id="btnPilih">Pilih Room</button>
 				</div>
 			</div>
 			<!-- Request Item -->
@@ -329,21 +332,18 @@
 		</div>
 
 		<!-- Pie Chart -->
-		<!-- Pie Chart -->
-		<div class="col-xl-4 col-lg-5">
+		<!-- <div class="col-xl-4 col-lg-5">
 			<div class="card shadow mb-4">
-				<!-- Card Header - Dropdown -->
 				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 					<h6 class="m-0 font-weight-bold text-primary">Calendar</h6>
 				</div>
-				<!-- Card Body -->
 				<div class="card-body">
 					<div id="caleandar">
 
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 
 </div>
@@ -411,6 +411,22 @@
 			$dropdown.off("mouseenter mouseleave");
 		}
 	});
+
+	function getSelected() {
+		var room_length = document.getElementsByClassName('room-view').length;
+		var selcbox = [];
+
+		for (var f = 0; f < room_length; f++) {
+			var inpfields = getElementById('pilih-' + f).length;
+			// var nr_inpfields = inpfields.length;
+		}
+
+		for (var i = 0; i < nr_inpfields; i++) {
+			if (inpfields[i].type == 'checkbox' && inpfields[i].checked == true) selchbox.push(inpfields[i].value);
+		}
+
+		return selchbox;
+	}
 
 
 	$(document).ready(function() {
@@ -572,6 +588,11 @@
 				// })
 			})
 		}
+
+		$('#btnPilih').on('click', function() {
+			var selek = getSelected();
+			alert(selek)
+		})
 
 	})
 </script>

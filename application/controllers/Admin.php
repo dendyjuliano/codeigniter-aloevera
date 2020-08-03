@@ -13,6 +13,25 @@ class Admin extends CI_Controller
 		}
 	}
 
+	// public function search_room()
+	// {
+	// 	$type = $this->input->post('type');
+	// 	$room = $this->M_admin->getRoomCategory($type);
+
+	// 	foreach ($room as $row) {
+	// 		$room_view = '
+	// 			<tr>
+	// 				<td>' . $row['kode_kamar'] . '</td>
+	// 				<td>' . $row['nama_kamar'] . '</td>
+	// 				<td>' . $row['tamu'] . '</td>
+	// 				<td>' . $row['harga'] . '</td>
+	// 			</tr>
+	// 		';
+
+	// 		echo $room_view;
+	// 	}
+	// }
+
 	public function search_room()
 	{
 		$skema = $this->input->post('TYPE');
@@ -914,7 +933,7 @@ class Admin extends CI_Controller
 		$this->load->view('admin/templates/header', $data);
 		$this->load->view('admin/templates/sidebar', $data);
 		$this->load->view('admin/templates/navbar', $data);
-		$this->load->view('admin/reservasi_new', $data);
+		$this->load->view('admin/reservasi', $data);
 		$this->load->view('admin/templates/footer');
 	}
 	//End Reservasi

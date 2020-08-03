@@ -109,11 +109,11 @@ class M_admin extends CI_Model
 		$query = $this->db->get();
 		return $query->num_rows();
 	}
-	// public function getRoomActive()
-	// {
-	// 	$query = "SELECT `tb_kategori`.*,`tb_kamar`.* FROM `tb_kategori` JOIN `tb_kamar` ON `tb_kamar`.`id_kategori` = `tb_kategori`.`id` WHERE `tb_kamar`.`status` = 1";
-	// 	return $this->db->query($query)->result_array();
-	// }
+	public function getRoomActive()
+	{
+		$query = "SELECT `tb_kategori`.*,`tb_kamar`.* FROM `tb_kategori` JOIN `tb_kamar` ON `tb_kamar`.`id_kategori` = `tb_kategori`.`id` WHERE `tb_kamar`.`status` = 1";
+		return $this->db->query($query)->result_array();
+	}
 
 
 
