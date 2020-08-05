@@ -149,6 +149,23 @@
 				<!-- Card Header - Dropdown -->
 				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 					<h6 class="m-0 font-weight-bold text-primary">Room Used</h6>
+					<div class="col-md-4 ml-auto">
+						<div class="row">
+							<select name="" class="form-control col-md-5 mr-2" id="">
+								<option value="" disabled selected>All</option>
+								<option value="">Kosong</option>
+								<option value="">Diperbaiki</option>
+								<option value="">Booking</option>
+								<option value="">Terisi</option>
+							</select>
+							<select name="" class="form-control col-md-5" id="">
+								<option value="" disabled selected>Lantai</option>
+								<option value="">Lantai 1</option>
+								<option value="">Lantai 2</option>
+								<option value="">Lantai 3</option>
+							</select>
+						</div>
+					</div>
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
@@ -417,15 +434,15 @@
 		var selcbox = [];
 
 		for (var f = 0; f < room_length; f++) {
-			var inpfields = getElementById('pilih-' + f).length;
-			// var nr_inpfields = inpfields.length;
+			var inpfields = document.getElementById('pilih-' + f);
+			var nr_inpfields = inpfields.length;
 		}
 
 		for (var i = 0; i < nr_inpfields; i++) {
 			if (inpfields[i].type == 'checkbox' && inpfields[i].checked == true) selchbox.push(inpfields[i].value);
 		}
+		return nr_inpfields;
 
-		return selchbox;
 	}
 
 

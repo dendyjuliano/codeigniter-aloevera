@@ -91,7 +91,7 @@
 		var table;
 		var table2;
 		table = $('#table_aviable').DataTable({
-			// "processing": true,
+			"processing": true,
 			"serverSide": true,
 			"paging": false,
 			"ordering": false,
@@ -148,13 +148,14 @@
 			// alert(table.rows('.selected').data().length + ' row(s) selected');
 			var data_room = table.rows('.selected').data();
 			table2.rows.add(data_room).draw();
-			table.rows('.selected').remove().draw(false);
+			table.rows('.selected').remove().draw();
 		});
 
 		$('#btn_batal').click(function() {
-			var data_selected = table2.rows('.batal').data();
-			console.log(data_selected)
-			table.rows.add(data_selected).draw();
+			// var data_selected = table2.rows('.batal').data();
+			// console.log(data_selected)
+			// table.rows.add(data_selected).draw();
+			table2.rows('.selected').remove().draw();
 		})
 
 
