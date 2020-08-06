@@ -4,7 +4,8 @@ class M_home extends CI_Model
 {
 	public function getCategory()
 	{
-		return $this->db->get('tb_kategori')->result_array();
+		$query = "SELECT tb_kategori.*,tb_kamar.*,If(tb_kamar.status > 1,tb_kamar.status > 1 - tb_kamar.status,Count(tb_kamar.status)) as jmlkamar FROM tb_kamar LEFT JOIN tb_kategori ON tb_kamar.id_kategori = tb_kategori.id GROUP BY tb_kategori.id";
+		return $this->db->query($query)->result_array();
 	}
 	public function getCategoryById($id)
 	{

@@ -17,7 +17,7 @@
 		<div class="container">
 			<div class="row ">
 				<div class="col-12">
-					<form action="<?= base_url('home/searchRoom') ?>" method="POST">
+					<form action="<?= base_url('home/searchRoom') ?>" method="GET">
 						<div class="booking-wrap d-flex justify-content-between align-items-center">
 
 							<!-- select in date -->
@@ -48,10 +48,13 @@
 								<div class="select-this">
 									<div class="select-itms">
 										<select name="adults" id="select1">
-											<option value="1" selected>1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
+											<?php for ($no = 1; $no < 5; $no++) : ?>
+												<?php if ($no == 1) : ?>
+													<option value="<?= $no ?>" selected><?= $no ?></option>
+												<?php else : ?>
+													<option value="<?= $no ?>"><?= $no ?></option>
+												<?php endif; ?>
+											<?php endfor; ?>
 										</select>
 									</div>
 								</div>
@@ -64,11 +67,13 @@
 								<div class="select-this">
 									<div class="select-itms">
 										<select name="children" id="select2">
-											<option value="0" selected>0</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
+											<?php for ($noC = 0; $noC < 6; $noC++) : ?>
+												<?php if ($noC == 0) : ?>
+													<option value="<?= $noC ?>" selected><?= $noC ?></option>
+												<?php else : ?>
+													<option value="<?= $noC ?>"><?= $noC ?></option>
+												<?php endif; ?>
+											<?php endfor; ?>
 										</select>
 									</div>
 								</div>
@@ -81,17 +86,20 @@
 								<div class="select-this">
 									<div class="select-itms">
 										<select name="roomNumber" id="select3">
-											<option value="1" selected>1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
+											<?php for ($noR = 1; $noR < 5; $noR++) : ?>
+												<?php if ($noR == 1) : ?>
+													<option value="<?= $noR ?>" selected><?= $noR ?></option>
+												<?php else : ?>
+													<option value="<?= $noR ?>"><?= $noR ?></option>
+												<?php endif; ?>
+											<?php endfor; ?>
 										</select>
 									</div>
 								</div>
 							</div>
 							<!-- Single Select Box -->
 							<div class="single-select-box pt-45 mb-30">
-								<button type="submit" class="btn select-btn">Book Now</button>
+								<button type="submit" class="btn select-btn">Search</button>
 							</div>
 						</div>
 					</form>
@@ -154,7 +162,7 @@
 								<h3><a href="rooms.html"><?= $rc['nama_kategori'] ?></a></h3>
 								<div class="per-night">
 									<span><u>Rp </u><?= number_format($rc['harga'], 0, ',', '.') ?> <span>/ malam</span></span>
-									<a href="<?= base_url('home/selectRoom/') . $rc['id'] ?>" class="btn view-btn1 float-right btn-sm">Select</a>
+									<a href="<?= base_url('home/selectRoom/') . $rc['id'] ?>" class="btn btn-warning float-right btn-sm">Read</a>
 								</div>
 							</div>
 						</div>
@@ -219,13 +227,16 @@
 							<!-- Testimonial tittle -->
 							<div class="font-back-tittle mb-105">
 								<div class="archivment-front">
-									<img src="<?= base_url() ?>assets/img/kepsek.jpg" style="border-radius: 50%;" width="160" alt="">
+									<img src="<?= base_url() ?>assets/img/kepsek.jpg" style="border-radius: 50%;  width: 115px;height: 115px; object-fit: cover;" alt="">
 								</div>
-								<h3 class="archivment-back">Testimonial</h3>
+								<h3 class="archivment-back">Testimonials</h3>
 							</div>
 							<!-- Testimonial Content -->
 							<div class="testimonial-caption text-center">
-								<p>Yorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.
+								<p>Dengan hadirnya situs SMK Negeri 1 Ciamis ini,
+									semoga dapat memberikan informasi
+									kepada khalayak tentang SMK Negeri 1 Ciamis.
+									SMK Bisa, SMKN 1 Ciamis Yakin Bisa.
 								</p>
 								<!-- Rattion -->
 								<div class="testimonial-ratting">
@@ -236,7 +247,32 @@
 									<i class="fas fa-star"></i>
 								</div>
 								<div class="rattiong-caption">
-									<span>Ika Karniati Sardi, <span>Kepala Sekolah SMKN 1 CIAMIS</span> </span>
+									<span>Dra. Hj. Ika Karniati Sardi, MM.Pd <span>Kepala SMKN 1 CIAMIS</span> </span>
+								</div>
+							</div>
+						</div>
+						<div class="single-testimonial pt-65">
+							<!-- Testimonial tittle -->
+							<div class="font-back-tittle mb-105">
+								<div class="archivment-front">
+									<img src="<?= base_url() ?>assets/img/Rusdiharto.jpg" style="border-radius: 50%;  width: 115px;height: 115px; object-fit: cover;" alt="">
+								</div>
+								<h3 class="archivment-back">Testimonials</h3>
+							</div>
+							<!-- Testimonial Content -->
+							<div class="testimonial-caption text-center">
+								<p>UNS telah berkembang luas biasa, pengembangan program studi, bukan hanya sebagai pusat pengembangan pembelajaran, tetapi pusat riset juga, baik di bidang ilmu sosial, ilmu teknik dan sebagainya.
+								</p>
+								<!-- Rattion -->
+								<div class="testimonial-ratting">
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+								</div>
+								<div class="rattiong-caption">
+									<span>Rusdiharto, spd <span> Wakil Kepala Sekolah</span> </span>
 								</div>
 							</div>
 						</div>

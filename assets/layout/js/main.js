@@ -35,8 +35,8 @@
 			doAnimations($animatingElements);
 		});
 		BasicSlider.slick({
-			autoplay: false,
-			autoplaySpeed: 4000,
+			autoplay: true,
+			autoplaySpeed: 3000,
 			dots: true,
 			fade: true,
 			arrows: false,
@@ -215,8 +215,19 @@
 	new WOW().init();
 
 	/* 11. Datepicker */
-	$('#datepicker1').datepicker();
-	$('#datepicker2').datepicker();
+	$('#datepicker1').datepicker({
+		disableDates: function (date) {
+			const currentDate = new Date();
+			return date > currentDate ? true : false;
+		}
+	});
+	$('#datepicker2').datepicker({
+		disableDates: function (date) {
+			const currentDate = new Date();
+			return date > currentDate ? true : false;
+		}
+	});
+
 
 
 
@@ -238,7 +249,6 @@
 			}
 		});
 	}
-
 
 
 

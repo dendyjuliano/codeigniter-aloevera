@@ -13,7 +13,7 @@ class Auth extends CI_Controller
 
 		if ($this->form_validation->run() == false) {
 			$data['title'] = "Login Admin";
-			$this->load->view('home/login2', $data);
+			$this->load->view('home/layoutOld/login2', $data);
 		} else {
 			$this->_login();
 		}

@@ -26,6 +26,10 @@
 	<link rel="stylesheet" href="<?= base_url() ?>assets/layout/css/nice-select.css">
 	<link rel="stylesheet" href="<?= base_url() ?>assets/layout/css/style.css">
 	<link rel="stylesheet" href="<?= base_url() ?>assets/layout/css/responsive.css">
+
+	<!-- Jquery -->
+	<script src="<?= base_url() ?>assets/layout/js/vendor/jquery-1.12.4.min.js"></script>
+
 </head>
 
 <body>
