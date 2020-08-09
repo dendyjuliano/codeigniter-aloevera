@@ -8,7 +8,7 @@
 					<div class="col-xl-2 col-lg-2">
 						<div class="logo">
 							<!-- <h1 class="text-warning">Edotel</h1> -->
-							<a href="index.html"><img src="<?= base_url() ?>assets/img/comunity.png" width="150" alt=""></a>
+							<a href="index.html"><img src="<?= base_url() ?>assets/img/logoAloevera.png" width="200" alt=""></a>
 						</div>
 					</div>
 					<div class="col-xl-10 col-lg-10">
@@ -24,11 +24,6 @@
 							</nav>
 						</div>
 					</div>
-					<!-- <div class="col-xl-2 col-lg-2">
-						<div class="header-btn">
-							<a href="#" class="btn btn1 d-none d-lg-block ">Book Online</a>
-						</div>
-					</div> -->
 					<!-- Mobile Menu -->
 					<div class="col-12">
 						<div class="mobile_menu d-block d-lg-none"></div>

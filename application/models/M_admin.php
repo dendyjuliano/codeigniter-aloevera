@@ -23,14 +23,30 @@ class M_admin extends CI_Model
 	}
 
 	//New Function
-	public function getRoom()
+	public function getRoom($status = null, $lantai = null)
 	{
-		$query = "SELECT `tb_kategori`.*,`tb_kamar`.* FROM `tb_kategori` JOIN `tb_kamar` ON `tb_kamar`.`id_kategori` = `tb_kategori`.`id`";
+		if ($status && $lantai != null) {
+			$query = "SELECT `tb_kategori`.*,`tb_kamar`.* FROM `tb_kategori` JOIN `tb_kamar` ON `tb_kamar`.`id_kategori` = `tb_kategori`.`id` WHERE `tb_kamar`.`status` = '$status' AND `tb_kamar`.`lantai` = '$lantai'";
+		} else if ($status != null) {
+			$query = "SELECT `tb_kategori`.*,`tb_kamar`.* FROM `tb_kategori` JOIN `tb_kamar` ON `tb_kamar`.`id_kategori` = `tb_kategori`.`id` WHERE `tb_kamar`.`status` = '$status' ";
+		} else {
+			$query = "SELECT `tb_kategori`.*,`tb_kamar`.* FROM `tb_kategori` JOIN `tb_kamar` ON `tb_kamar`.`id_kategori` = `tb_kategori`.`id` ";
+		}
 		return $this->db->query($query)->result_array();
 	}
 	public function getRoomId($id_room)
 	{
 		$query = "SELECT `tb_kategori`.*,`tb_kamar`.* FROM `tb_kategori` JOIN `tb_kamar` ON `tb_kamar`.`id_kategori` = `tb_kategori`.`id` WHERE `tb_kamar`.`id` = '$id_room'";
+		return $this->db->query($query)->row_array();
+	}
+	public function getRoomIdByReservasi($id_room, $reservasi_code)
+	{
+		$query = "SELECT tb_kategori.*,tb_kamar.*,tb_reservasi.*,tb_reservasi_room.*,tb_reservasi_request_item.*,tb_customer.* FROM tb_reservasi LEFT JOIN tb_reservasi_room ON tb_reservasi.id = tb_reservasi_room.reservasi_id LEFT JOIN tb_reservasi_request_item ON tb_reservasi_room.id = tb_reservasi_request_item.reservasi_room_id LEFT JOIN tb_customer ON tb_reservasi.customer_id = tb_customer.id LEFT JOIN tb_kamar ON tb_reservasi_room.room_id = tb_kamar.id LEFT JOIN tb_kategori ON tb_kamar.id_kategori = tb_kategori.id WHERE tb_reservasi.kode_reservasi = '$reservasi_code' AND tb_reservasi_room.room_id = '$id_room' AND tb_kamar.status = 3";
+		return $this->db->query($query)->row_array();
+	}
+	public function getRoomIdByReservasiLaporan($kode_kamar, $reservasi_code)
+	{
+		$query = "SELECT tb_kategori.*,tb_kamar.*,tb_reservasi.*,tb_reservasi_room.*,tb_reservasi_request_item.*,tb_customer.* FROM tb_reservasi LEFT JOIN tb_reservasi_room ON tb_reservasi.id = tb_reservasi_room.reservasi_id LEFT JOIN tb_reservasi_request_item ON tb_reservasi_room.id = tb_reservasi_request_item.reservasi_room_id LEFT JOIN tb_customer ON tb_reservasi.customer_id = tb_customer.id LEFT JOIN tb_kamar ON tb_reservasi_room.room_id = tb_kamar.id LEFT JOIN tb_kategori ON tb_kamar.id_kategori = tb_kategori.id WHERE tb_reservasi.kode_reservasi = '$reservasi_code' AND tb_kamar.kode_kamar = '$kode_kamar'";
 		return $this->db->query($query)->row_array();
 	}
 	public function getRoomCategory($category_id)
@@ -41,6 +57,11 @@ class M_admin extends CI_Model
 	public function getCustomer()
 	{
 		return $this->db->get('tb_customer')->result_array();
+	}
+	public function getRequestItemByRoom($reservasiRoom)
+	{
+		$query = "SELECT tb_reservasi_request_item.*,tb_item.* FROM tb_reservasi_request_item JOIN tb_item ON tb_reservasi_request_item.item_id = tb_item.id WHERE tb_reservasi_request_item.reservasi_room_id = '$reservasiRoom'";
+		return $this->db->query($query)->result_array();
 	}
 
 	//Datatable Aviable Room
@@ -233,36 +254,12 @@ class M_admin extends CI_Model
 		return $this->db->query($query)->result_array();
 	}
 
-	public function data_payment()
-	{
-
-		$query = "SELECT `transaksi`.*,`tb_pembayaran`.* FROM `transaksi` LEFT JOIN `tb_pembayaran` ON `tb_pembayaran`.`nomor_pesanan` = `transaksi`.`nomor_pesanan` WHERE `tb_pembayaran`.`is_email` > 0";
-		return $this->db->query($query)->result_array();
-	}
-
 	public function data_history()
 	{
 		$query = "SELECT `tb_kamar`.*,`tb_riwayat`.* FROM `tb_kamar` JOIN `tb_riwayat` ON `tb_riwayat`.`id_kamar` = `tb_kamar`.`id` ";
 		return $this->db->query($query)->result_array();
 	}
 
-	public function data_not_payment()
-	{
-
-		$query = "SELECT `transaksi`.*,`tb_pembayaran`.* FROM `transaksi` LEFT JOIN `tb_pembayaran` ON `tb_pembayaran`.`nomor_pesanan` = `transaksi`.`nomor_pesanan` WHERE `tb_pembayaran`.`is_email` = 0 AND `tb_pembayaran`.`id_metode` = 1";
-		return $this->db->query($query)->result_array();
-	}
-
-	public function data_not_transfer()
-	{
-		$query = "SELECT `transaksi`.*,`tb_pembayaran`.* FROM `transaksi` LEFT JOIN `tb_pembayaran` ON `tb_pembayaran`.`nomor_pesanan` = `transaksi`.`nomor_pesanan` WHERE `tb_pembayaran`.`is_email` = 0 AND `tb_pembayaran`.`id_metode` = 2 AND `tb_pembayaran`.`is_transfer` = 0";
-		return $this->db->query($query)->result_array();
-	}
-
-	public function data_transfer()
-	{
-		return $this->db->get('tb_transfer')->result_array();
-	}
 
 	public function data_room()
 	{
@@ -278,16 +275,6 @@ class M_admin extends CI_Model
 	public function data_kategori()
 	{
 		return $this->db->get('tb_kategori')->result_array();
-	}
-
-	public function data_transaction_ready()
-	{
-		return $this->db->get_where('transaksi', ['is_email' => 1])->result_array();
-	}
-
-	public function data_transaction_not()
-	{
-		return $this->db->get_where('transaksi', ['is_email' => 0])->result_array();
 	}
 
 	public function data_checkin()
@@ -345,24 +332,6 @@ class M_admin extends CI_Model
 			return 0;
 		}
 	}
-	public function data_transaction_row()
-	{
-		$query = $this->db->get_where('transaksi', ['is_email' => 0]);
-		if ($query->num_rows() > 0) {
-			return $query->num_rows();
-		} else {
-			return 0;
-		}
-	}
-	public function data_payment_row()
-	{
-		$query = $this->db->get_where('tb_pembayaran', ['is_email' => 0]);
-		if ($query->num_rows() > 0) {
-			return $query->num_rows();
-		} else {
-			return 0;
-		}
-	}
 	//End Data Row
 
 	//Start Delete Data
@@ -382,24 +351,13 @@ class M_admin extends CI_Model
 	{
 		$this->db->delete('user_sub_menu', ['id' => $id]);
 	}
-	public function deleteDataTransaction($id)
-	{
-		$this->db->delete('transaksi', ['id' => $id]);
-	}
+
 	public function deleteDataCategory($id)
 	{
 		$data['kategori'] = $this->db->get_where('tb_kategori', ['id' => $id])->row_array();
 		$old_image = $data['kategori']['image'];
 		unlink(FCPATH . 'uploads/' . $old_image);
 		$this->db->delete('tb_kategori', ['id' => $id]);
-	}
-	public function deleteDataTransfer($id)
-	{
-		$this->db->delete('tb_transfer', ['id' => $id]);
-	}
-	public function deleteDataPayment($kode_pembayaran)
-	{
-		$this->db->delete('tb_pembayaran', ['id' => $kode_pembayaran]);
 	}
 	//End Delete Data
 

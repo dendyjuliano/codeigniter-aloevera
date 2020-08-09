@@ -40,11 +40,8 @@ class Admin extends CI_Controller
 		$supporter = $this->M_admin->get_datatables();
 		$data = [];
 		foreach ($supporter as $item) {
-			// $no++;
+			$no++;
 			$row = [];
-			// 	$row[] = '<div class="form-check">
-			// 	<input class="form-check-input position-static" type="checkbox" id="check-' . $no++ . '">
-			//   </div>';
 			// Pengisian array sesuai urutan pada table di html
 			$row[] = $item->kode_kamar;
 			$row[] = $item->nama_kamar;
@@ -71,37 +68,97 @@ class Admin extends CI_Controller
 
 	public function modal_checkout($id_room)
 	{
-		// $data['customer'] = $this->M_admin->getCustomer();
-		// $data['item'] = $this->M_admin->data_item();
-		$data['room_row'] = $this->M_admin->getRoomId($id_room);
+		$reservasi_code = $this->input->post('reservasi_code');
+		$room_row = $this->M_admin->getRoomIdByReservasi($id_room, $reservasi_code);
+		$checkinDate = strtotime($room_row['checkin_date']);
+		$checkoutDate = strtotime($room_row['checkout_date']);
+		$priceRoom = $room_row['harga'];
+		$reservasiRoom = $room_row['reservasi_room_id'];
+		$reservasiRequestItem = $this->M_admin->getRequestItemByRoom($reservasiRoom);
+
+		//Get Days
+		$diff = abs($checkoutDate - $checkinDate);
+		$years = floor($diff / (365 * 60 * 60 * 24));
+		$months = floor(($diff - $years * 365 * 60 * 60 * 24)
+			/ (30 * 60 * 60 * 24));
+		$days = floor(($diff - $years * 365 * 60 * 60 * 24 -
+			$months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+		$data = [
+			'room_row' => $room_row,
+			'subtotal' => $priceRoom * $days,
+			'requestItem' => $reservasiRequestItem,
+		];
+
 		$this->load->view('admin/modal_checkout', $data);
-		// $type_id = $this->input->post('type_id');
-		// if ($type_id != null) {
-		// 	$room = $this->M_admin->getRoomCategory($type_id);
-		// 	if ($room != null) {
-		// 		foreach ($room as $row) {
-		// 			echo '
-		// 				<tr>
-		// 					<td><div class="form-check">
-		// 					<input class="form-check-input position-static" type="checkbox" id="checkbox_room" value="1">
-		// 				  </div></td>
-		// 					<td>' . $row['kode_kamar'] . '</td>
-		// 					<td>' . $row['nama_kamar'] . '</td>
-		// 					<td>' . $row['tamu'] . '</td>
-		// 					<td>' . $row['harga'] . '</td>
-		// 				</tr>
-		// 			';
-		// 		}
-		// 	} else {
-		// 		echo '<tr>
-		// 				<td colspan="5" class="text-center text-danger">Ruangan Sudah Penuh</td>
-		// 			</tr>';
-		// 	}
-		// } else {
-		// 	echo '<tr>
-		// 		<td>Gagal</td>
-		// 	</tr>';
-		// }
+	}
+
+	public function printCheckout($kode_kamar, $reservasi_code, $totalHarga)
+	{
+
+		$room_row = $this->M_admin->getRoomIdByReservasiLaporan($kode_kamar, $reservasi_code);
+		$checkinDate = strtotime($room_row['checkin_date']);
+		$checkoutDate = strtotime($room_row['checkout_date']);
+		$priceRoom = $room_row['harga'];
+		$reservasiRoom = $room_row['reservasi_room_id'];
+		$reservasiRequestItem = $this->M_admin->getRequestItemByRoom($reservasiRoom);
+
+		$diff = abs($checkoutDate - $checkinDate);
+		$years = floor($diff / (365 * 60 * 60 * 24));
+		$months = floor(($diff - $years * 365 * 60 * 60 * 24)
+			/ (30 * 60 * 60 * 24));
+		$days = floor(($diff - $years * 365 * 60 * 60 * 24 -
+			$months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+		$data = [
+			'room_row' => $room_row,
+			'subtotal' => $priceRoom * $days,
+			'requestItem' => $reservasiRequestItem,
+			'totalHarga' => $totalHarga,
+			'days' => $days
+		];
+
+		$this->load->view('admin/printCheckoutData', $data);
+	}
+
+	public function checkout()
+	{
+		$kode_kamar = $this->input->post('kode_kamar');
+		$kode_reservasi = $this->input->post('kode_reservasi');
+		$totalHarga = $this->input->post('totalHarga');
+
+		$this->db->set('status', 1);
+		$this->db->where('kode_kamar', $kode_kamar);
+		$this->db->update('tb_kamar');
+
+		$this->db->set('status', 2);
+		$this->db->where('kode_reservasi', $kode_reservasi);
+		$this->db->update('tb_reservasi');
+
+		$room_row = $this->M_admin->getRoomIdByReservasiLaporan($kode_kamar, $kode_reservasi);
+		$checkinDate = strtotime($room_row['checkin_date']);
+		$checkoutDate = strtotime($room_row['checkout_date']);
+		$priceRoom = $room_row['harga'];
+		$reservasiRoom = $room_row['reservasi_room_id'];
+		$reservasiRequestItem = $this->M_admin->getRequestItemByRoom($reservasiRoom);
+
+		$diff = abs($checkoutDate - $checkinDate);
+		$years = floor($diff / (365 * 60 * 60 * 24));
+		$months = floor(($diff - $years * 365 * 60 * 60 * 24)
+			/ (30 * 60 * 60 * 24));
+		$days = floor(($diff - $years * 365 * 60 * 60 * 24 -
+			$months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+		$data = [
+			'room_row' => $room_row,
+			'days' => $days,
+			'subtotal' => $priceRoom * $days,
+			'requestItem' => $reservasiRequestItem,
+			'totalHarga' => $totalHarga,
+		];
+
+
+		$this->load->view('admin/printCheckoutData', $data);
 	}
 
 	public function add_turis($id)
@@ -223,7 +280,8 @@ class Admin extends CI_Controller
 				'tanggal' => $tanggal,
 				'employee_id' => $employee_id,
 				'customer_id' => $customer_id,
-				'kode_reservasi' => $kode_reservasi
+				'kode_reservasi' => $kode_reservasi,
+				'status' => 1
 			];
 
 			$this->db->insert('tb_reservasi', $data_reservasi);
@@ -379,12 +437,7 @@ class Admin extends CI_Controller
 		$data['customer_row'] = $this->M_admin->data_customer_row();
 		$data['room_row'] = $this->M_admin->data_room_row();
 		$data['category_row'] = $this->M_admin->data_category_row();
-		$data['transaction_row'] = $this->M_admin->data_transaction_row();
 		$data['active'] = $this->M_admin->data_active();
-		$data['transaction'] = $this->M_admin->data_transaction_not();
-		$data['payment'] = $this->M_admin->data_not_payment();
-		$data['not_transfer'] = $this->M_admin->data_not_transfer();
-		$data['transfer'] = $this->M_admin->data_transfer();
 		$data['admin'] = $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array();
 		$this->load->view('admin/templates/header', $data);
 		$this->load->view('admin/templates/sidebar', $data);
@@ -680,22 +733,6 @@ class Admin extends CI_Controller
 		redirect('admin/transaksi_ready');
 	}
 
-	public function transaksi_ready()
-	{
-		$data['title'] = "First Check";
-		$data['transactiondata_ready'] = $this->M_admin->data_transaction_ready();
-		$data['transactiondata_not'] = $this->M_admin->data_transaction_not();
-		$data['role'] = $this->M_admin->data_role();
-		$data['admin'] = $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array();
-		$this->load->view('admin/templates/header', $data);
-		$this->load->view('admin/templates/sidebar', $data);
-		$this->load->view('admin/templates/navbar', $data);
-		$this->load->view('admin/transaction_ready', $data);
-		$this->load->view('admin/templates/footer');
-	}
-
-
-
 	public function send_email($id)
 	{
 		$data['title'] = "All Transaction";
@@ -915,20 +952,19 @@ class Admin extends CI_Controller
 	//Start Reservasi
 	public function reservasi()
 	{
+		$lantai = $this->input->post('lantai');
+		$status = $this->input->post('status');
+
 		$data['title'] = "Reservasi";
 		$data['customer_row'] = $this->M_admin->data_customer_row();
 		$data['room_row'] = $this->M_admin->data_room_row();
 		$data['category_row'] = $this->M_admin->data_category_row();
-		$data['transaction_row'] = $this->M_admin->data_transaction_row();
-		$data['payment_row'] = $this->M_admin->data_payment_row();
 		$data['customer'] = $this->M_admin->getCustomer();
 		$data['kategori'] = $this->M_admin->data_kategori();
 
-		$data['room'] = $this->M_admin->getRoom();
+		$data['room'] = $this->M_admin->getRoom($status, $lantai);
 		$data['active'] = $this->M_admin->data_active();
 		$data['item'] = $this->M_admin->data_item();
-		$data['transaction'] = $this->M_admin->data_transaction_not();
-		$data['payment'] = $this->M_admin->data_not_payment();
 		$data['admin'] = $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array();
 		$this->load->view('admin/templates/header', $data);
 		$this->load->view('admin/templates/sidebar', $data);
@@ -937,168 +973,6 @@ class Admin extends CI_Controller
 		$this->load->view('admin/templates/footer');
 	}
 	//End Reservasi
-
-	//Start Payment
-	public function payment()
-	{
-		$data['title'] = "Second Check";
-		$data['payment'] = $this->M_admin->data_payment();
-		$data['payment_not'] = $this->M_admin->data_not_payment();
-		$data['not_transfer'] = $this->M_admin->data_not_transfer();
-		$data['role'] = $this->M_admin->data_role();
-		$data['admin'] = $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array();
-		$this->load->view('admin/templates/header', $data);
-		$this->load->view('admin/templates/sidebar', $data);
-		$this->load->view('admin/templates/navbar', $data);
-		$this->load->view('admin/payment', $data);
-		$this->load->view('admin/templates/footer');
-	}
-
-	public function detail_payment($kode_pembayaran)
-	{
-
-		$this->form_validation->set_rules('code_payment', 'Code Payment', 'required', [
-			'required' => 'Code Payment cannot be empty'
-		]);
-
-		if ($this->form_validation->run() == false) {
-			$data['title'] = "Payment";
-			$data['payment_id'] = $this->M_admin->data_payment_id($kode_pembayaran);
-			$data['role'] = $this->M_admin->data_role();
-			$data['admin'] = $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array();
-			$this->load->view('admin/templates/header', $data);
-			$this->load->view('admin/templates/sidebar', $data);
-			$this->load->view('admin/templates/navbar', $data);
-			$this->load->view('admin/payment_id', $data);
-			$this->load->view('admin/templates/footer');
-		} else {
-			$data['payment_id'] = $this->M_admin->data_payment_id($kode_pembayaran);
-			$payment_code = $this->input->post('code_payment');
-			$email = $this->input->post('email');
-			$nama = $this->input->post('name');
-			$boking_code = $this->input->post('code_boking');
-			$checkin = $this->input->post('checkin');
-			$checkout = $this->input->post('checkout');
-			$telp = $this->input->post('telp');
-			$price = $this->input->post('price');
-			$durasi = $this->input->post('durasi');
-			$order = $this->input->post('order');
-			$qr_code = $this->input->post('qr_code');
-			$kamar = $this->input->post('kamar');
-			$id_kamar = $this->input->post('id_kamar');
-			$id_transaksi = $this->input->post('id_transaksi');
-			$check = $this->input->post('check');
-			$metode = $this->input->post('metode');
-			$pembayaran = $this->input->post('pembayaran');
-
-			$subject = 'Detail Payment from EDOTEL ALOEVERA';
-
-			$message = '
-            <h3>Payment Details</h3>
-            <p>Provide payment code and qr code on the reservation</p>
-            <table>
-                <tr>
-                    <td width="30%">Payment Code :</td>
-                    <td width="70%">' . $payment_code . '</td>
-                </tr>
-                <tr>
-                    <td width="30%">Booking Code :</td>
-                    <td width="70%">' . $boking_code . '</td>
-                </tr>
-                <tr>
-                    <td width="30%">Name :</td>
-                    <td width="70%">' . $nama . '</td>
-                </tr>
-                <tr>
-                    <td width="30%">Room Name :</td>
-                    <td width="70%">' . $kamar . '</td>
-                </tr>
-                <tr>
-                    <td width="30%">Check In :</td>
-                    <td width="70%">' . $checkin . '</td>
-                </tr>
-                <tr>
-                    <td width="30%">Check Out :</td>
-                    <td width="70%">' . $checkout . '</td>
-                </tr>
-                <tr>
-                    <td width="30%">Duration :</td>
-                    <td width="70%">' . $durasi . '</td>
-                </tr>
-                <tr>
-                    <td width="30%">Order Date :</td>
-                    <td width="70%">' . $order . '</td>
-                </tr>
-                <tr>
-                    <td width="30%">Number Telphone :</td>
-                    <td width="70%">' . $telp . '</td>
-                </tr>
-                <tr>
-                    <td width="30%">Price :</td>
-                    <td width="70%">' . $price . '</td>
-                </tr>
-                <tr>
-                    <td width="30%">Metode Payment :</td>
-                    <td width="70%">' . $metode . '</td>
-                </tr>
-                <tr>
-                    <td width="30%">Payment At :</td>
-                    <td width="70%">' . $pembayaran . '</td>
-                </tr>
-                <tr>
-                    <td width="30%">QR Code :</td>
-                    <td width="70%"></td>
-                </tr>
-            </table>
-        ';
-
-			$config['protocol']    = 'smtp';
-			$config['smtp_host']    = 'ssl://smtp.gmail.com';
-			$config['smtp_port']    = '465';
-			$config['smtp_timeout'] = '7';
-			$config['smtp_user']    = 'javahotel2020@gmail.com';
-			$config['smtp_pass']    = 'rahasia1234567';
-			$config['charset']    = 'utf-8';
-			$config['newline']    = "\r\n";
-			$config['mailtype'] = 'html';
-			$config['validation'] = TRUE;
-
-			$this->load->library('upload');
-			$this->email->initialize($config);
-			$this->email->attach("uploads/$qr_code", "inline");
-
-
-			$this->email->from('javahotel2020@gmail.com');
-			$this->email->to($email);
-
-			$this->email->subject($subject);
-			$this->email->message($message);
-
-
-			if ($this->email->send()) {
-				$this->db->set('is_email', $check);
-				$this->db->set('is_transfer', $check);
-				$this->db->where('id', $id_transaksi);
-				$this->db->update('tb_pembayaran');
-				$this->db->set('active', $id_transaksi);
-				$this->db->set('status', 2);
-				$this->db->where('id', $id_kamar);
-				$this->db->update('tb_kamar');
-				redirect('admin/payment');
-				$this->session->set_flashdata('flash', 'Sended');
-			} else {
-				echo $this->email->print_debugger();
-			}
-		}
-	}
-
-	public function delete_payment($kode_pembayaran)
-	{
-		$this->M_admin->deleteDataPayment($kode_pembayaran);
-		$this->session->set_flashdata('flash', 'Deleted');
-		redirect('admin/payment');
-	}
-	//End Payment
 
 	//Start History
 	public function history()

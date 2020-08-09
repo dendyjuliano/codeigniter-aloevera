@@ -75,10 +75,9 @@ class Home extends CI_Controller
 
 		echo json_encode($data);
 	}
-	public function viewSelectRoom($idCategory, $checkinDate, $checkoutDate, $adults, $children, $room)
+	public function viewSelectRoom($checkinDate, $checkoutDate, $adults, $children, $room)
 	{
 		$data = [
-			'roomCategoryById' => $this->M_home->getCategoryById($idCategory),
 			'roomCategory' => $this->M_home->getCategory(),
 			'checkinDate' => date("m/d/Y", strtotime($checkinDate)),
 			'checkoutDate' => date("m/d/Y", strtotime($checkoutDate)),
@@ -136,26 +135,19 @@ class Home extends CI_Controller
 		}
 	}
 	//Function System
-	public function searchRoom()
+	public function searchRoom($checkinDate, $checkoutDate, $adults, $children, $room)
 	{
-		$checkinDate = $this->input->get('checkinDate');
-		$checkoutDate = $this->input->get('checkoutDate');
-		$adults = $this->input->get('adults');
-		$children = $this->input->get('children');
-		$room = $this->input->get('roomNumber');
-		$roomCategory = $this->M_home->getCategory();
-
 		$data = [
-			'checkinDate' => $checkinDate,
-			'checkoutDate' => $checkoutDate,
+			'roomCategory' => $this->M_home->getCategory(),
+			'checkinDate' => date("m/d/Y", strtotime($checkinDate)),
+			'checkoutDate' => date("m/d/Y", strtotime($checkoutDate)),
 			'adults' => $adults,
 			'children' => $children,
 			'room' => $room,
-			'roomCategory' => $roomCategory,
-			'title' => "Aviable Room"
+			'title' => "Aviable Room",
 		];
 
-		// $this->session->set_userdata($dataReservation);
+		// var_dump($data['roomCategory']);
 		$this->load->view('home/layout/headerHome', $data);
 		$this->load->view('home/layout/navbarHome', $data);
 		$this->load->view('home/layout/jumbotronHome', $data);
@@ -175,28 +167,42 @@ class Home extends CI_Controller
 
 		// Formulate the Difference between two dates 
 		$diff = abs($checkoutDate - $checkinDate);
-
 		// total seconds in a year (365*60*60*24) 
 		$years = floor($diff / (365 * 60 * 60 * 24));
-
-		// To get the month, subtract it with years and 
 		// total seconds in a month (30*60*60*24) 
 		$months = floor(($diff - $years * 365 * 60 * 60 * 24)
 			/ (30 * 60 * 60 * 24));
-
-		// To get the day, subtract it with years and  
 		// total seconds in a days (60*60*24) 
 		$days = floor(($diff - $years * 365 * 60 * 60 * 24 -
 			$months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
 
 		$subtotalPrice = $priceRoom * $room * $days;
-
-		$data = [
+		$data = array(
+			'idCategory' => $roomById['id_kategori'],
 			'roomName' => $roomById['nama_kategori'],
 			'days' => $days,
 			'subtotalPrice' =>  number_format($subtotalPrice, 0, ',', '.'),
-		];
+		);
 
 		$this->load->view('home/layout/card/cardPayment', $data);
+	}
+
+	public function bookingInformation($checkinDate, $checkoutDate, $adults, $children, $room)
+	{
+		$data = [
+			'roomCategory' => $this->M_home->getCategory(),
+			'checkinDate' => date("m/d/Y", strtotime($checkinDate)),
+			'checkoutDate' => date("m/d/Y", strtotime($checkoutDate)),
+			'adults' => $adults,
+			'children' => $children,
+			'room' => $room,
+			'title' => "Booking Detail",
+		];
+
+		$this->load->view('home/layout/headerHome', $data);
+		$this->load->view('home/layout/navbarHome', $data);
+		$this->load->view('home/layout/jumbotronHome', $data);
+		$this->load->view('home/layout/page/bookingDetailPage', $data);
+		$this->load->view('home/layout/footerHome', $data);
 	}
 }

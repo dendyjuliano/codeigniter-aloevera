@@ -6,7 +6,9 @@
 				<div class="gallery-active owl-carousel">
 					<?php foreach ($roomCategory as $rc) : ?>
 						<div class="gallery-img">
-							<img src="<?= base_url('uploads/') . $rc['image'] ?>" alt="">
+							<img src="<?= base_url('uploads/') . $rc['image'] ?>" style="width: 100%;
+								height: 200px;
+								object-fit: cover;" alt="">
 						</div>
 					<?php endforeach; ?>
 				</div>

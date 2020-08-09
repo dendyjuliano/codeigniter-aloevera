@@ -19,13 +19,14 @@
 	<div class="flash-data3" data-flashdata3="<?= $this->session->flashdata('flash3'); ?>"></div>
 	<div class="flash-data4" data-flashdata4="<?= $this->session->flashdata('flash4'); ?>"></div>
 
-	<div class="card kotak col-md-6 mx-auto">
+	<div class="card shadow kotak col-md-6 mx-auto">
 		<div class="card-body">
 			<form action="" method="post">
 				<div class="row">
 					<div class="col-md-8">
-						<h3 class="judul">ALOEVERA</h3>
+						<img src="<?= base_url('assets/img/logoAloevera.png') ?>" width="200" alt="">
 						<!-- <h5 class="display-4">Login Account</h5> -->
+						<br>
 						<br>
 						<div class="form-row">
 							<div class="form-group col-md-12">

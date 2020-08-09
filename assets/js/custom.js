@@ -29,7 +29,6 @@ function setDateRangePicker(input1, input2) {
 		format: "YYYY-MM-DD",
 		useCurrent: false,
 		minDate: new Date(),
-		// defaultDate: new Date(),
 	})
 	$(input1).on("change.datetimepicker", function (e) {
 		$(input2).val("")

@@ -17,92 +17,92 @@
 		<div class="container">
 			<div class="row ">
 				<div class="col-12">
-					<form action="<?= base_url('home/searchRoom') ?>" method="GET">
-						<div class="booking-wrap d-flex justify-content-between align-items-center">
+					<!-- <form action="<?= base_url('home/searchRoom') ?>" method="GET"> -->
+					<div class="booking-wrap d-flex justify-content-between align-items-center">
 
-							<!-- select in date -->
-							<div class="single-select-box mb-30">
-								<!-- select out date -->
-								<div class="boking-tittle">
-									<span> Check In Date:</span>
-								</div>
-								<div class="boking-datepicker">
-									<input id="datepicker1" name="checkinDate" value="<?= date("m/d/Y") ?>" />
-								</div>
+						<!-- select in date -->
+						<div class="single-select-box mb-30">
+							<!-- select out date -->
+							<div class="boking-tittle">
+								<span> Check In Date:</span>
 							</div>
-							<!-- Single Select Box -->
-							<div class="single-select-box mb-30">
-								<!-- select out date -->
-								<div class="boking-tittle">
-									<span>Check OutDate:</span>
-								</div>
-								<div class="boking-datepicker">
-									<input id="datepicker2" name="checkoutDate" value="<?= date('m/d/Y', strtotime('+1 day')) ?>" />
-								</div>
-							</div>
-							<!-- Single Select Box -->
-							<div class="single-select-box mb-30">
-								<div class="boking-tittle">
-									<span>Adults:</span>
-								</div>
-								<div class="select-this">
-									<div class="select-itms">
-										<select name="adults" id="select1">
-											<?php for ($no = 1; $no < 5; $no++) : ?>
-												<?php if ($no == 1) : ?>
-													<option value="<?= $no ?>" selected><?= $no ?></option>
-												<?php else : ?>
-													<option value="<?= $no ?>"><?= $no ?></option>
-												<?php endif; ?>
-											<?php endfor; ?>
-										</select>
-									</div>
-								</div>
-							</div>
-							<!-- Single Select Box -->
-							<div class="single-select-box mb-30">
-								<div class="boking-tittle">
-									<span>Children:</span>
-								</div>
-								<div class="select-this">
-									<div class="select-itms">
-										<select name="children" id="select2">
-											<?php for ($noC = 0; $noC < 6; $noC++) : ?>
-												<?php if ($noC == 0) : ?>
-													<option value="<?= $noC ?>" selected><?= $noC ?></option>
-												<?php else : ?>
-													<option value="<?= $noC ?>"><?= $noC ?></option>
-												<?php endif; ?>
-											<?php endfor; ?>
-										</select>
-									</div>
-								</div>
-							</div>
-							<!-- Single Select Box -->
-							<div class="single-select-box mb-30">
-								<div class="boking-tittle">
-									<span>Rooms:</span>
-								</div>
-								<div class="select-this">
-									<div class="select-itms">
-										<select name="roomNumber" id="select3">
-											<?php for ($noR = 1; $noR < 5; $noR++) : ?>
-												<?php if ($noR == 1) : ?>
-													<option value="<?= $noR ?>" selected><?= $noR ?></option>
-												<?php else : ?>
-													<option value="<?= $noR ?>"><?= $noR ?></option>
-												<?php endif; ?>
-											<?php endfor; ?>
-										</select>
-									</div>
-								</div>
-							</div>
-							<!-- Single Select Box -->
-							<div class="single-select-box pt-45 mb-30">
-								<button type="submit" class="btn select-btn">Search</button>
+							<div class="boking-datepicker">
+								<input id="datepicker1" name="checkinDate" value="<?= date("m/d/Y") ?>" />
 							</div>
 						</div>
-					</form>
+						<!-- Single Select Box -->
+						<div class="single-select-box mb-30">
+							<!-- select out date -->
+							<div class="boking-tittle">
+								<span>Check OutDate:</span>
+							</div>
+							<div class="boking-datepicker">
+								<input id="datepicker2" name="checkoutDate" value="<?= date('m/d/Y', strtotime('+1 day')) ?>" />
+							</div>
+						</div>
+						<!-- Single Select Box -->
+						<div class="single-select-box mb-30">
+							<div class="boking-tittle">
+								<span>Adults:</span>
+							</div>
+							<div class="select-this">
+								<div class="select-itms">
+									<select name="adults" id="select1">
+										<?php for ($no = 1; $no < 5; $no++) : ?>
+											<?php if ($no == 1) : ?>
+												<option value="<?= $no ?>" selected><?= $no ?></option>
+											<?php else : ?>
+												<option value="<?= $no ?>"><?= $no ?></option>
+											<?php endif; ?>
+										<?php endfor; ?>
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- Single Select Box -->
+						<div class="single-select-box mb-30">
+							<div class="boking-tittle">
+								<span>Children:</span>
+							</div>
+							<div class="select-this">
+								<div class="select-itms">
+									<select name="children" id="select2">
+										<?php for ($noC = 0; $noC < 6; $noC++) : ?>
+											<?php if ($noC == 0) : ?>
+												<option value="<?= $noC ?>" selected><?= $noC ?></option>
+											<?php else : ?>
+												<option value="<?= $noC ?>"><?= $noC ?></option>
+											<?php endif; ?>
+										<?php endfor; ?>
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- Single Select Box -->
+						<div class="single-select-box mb-30">
+							<div class="boking-tittle">
+								<span>Rooms:</span>
+							</div>
+							<div class="select-this">
+								<div class="select-itms">
+									<select name="roomNumber" id="select3">
+										<?php for ($noR = 1; $noR < 5; $noR++) : ?>
+											<?php if ($noR == 1) : ?>
+												<option value="<?= $noR ?>" selected><?= $noR ?></option>
+											<?php else : ?>
+												<option value="<?= $noR ?>"><?= $noR ?></option>
+											<?php endif; ?>
+										<?php endfor; ?>
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- Single Select Box -->
+						<div class="single-select-box pt-45 mb-30">
+							<a onclick="getDateReservation()" class="btn select-btn">Change</a>
+						</div>
+					</div>
+					<!-- </form> -->
 				</div>
 			</div>
 		</div>
@@ -326,3 +326,32 @@
 	<!-- Blog End -->
 
 </main>
+
+<script>
+	function getDateReservation() {
+		const checkinDate = $('#datepicker1').val();
+		const checkoutDate = $('#datepicker2').val();
+		const adults = $('#select1').val();
+		const children = $('#select2').val();
+		const room = $('#select3').val();
+		const urlSelectRoom = "<?= base_url('home/selectRoom/') ?>";
+
+		$.ajax({
+			url: urlSelectRoom,
+			method: "GET",
+			data: {
+				checkinDate: checkinDate,
+				checkoutDate: checkoutDate,
+				adults: adults,
+				children: children,
+				room: room,
+			},
+			dataType: 'JSON',
+			success: function(data) {
+				console.log(data.status)
+				window.location.replace("<?= base_url('home/searchRoom/') ?>" + data.checkinDate + "/" + data.checkoutDate + "/" + data.adults + "/" + data.children + "/" + data.room);
+
+			}
+		})
+	}
+</script>

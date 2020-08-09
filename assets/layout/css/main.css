@@ -50,6 +50,10 @@
   cursor: pointer;
 }
 
+.color-default{
+	background-color: #dca73a;
+}
+
 /* line 102, C:/Users/SPN Graphics/Desktop/hotel_up/Hotel_HTML/assets/scss/_variables.scss */
 .boxed-btn:hover {
   background: #dca73a;

@@ -1,5 +1,5 @@
 <!-- Begin Page Content -->
-<div class="container-fluid">
+<div class="container-fluid noprint">
 
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -151,18 +151,17 @@
 					<h6 class="m-0 font-weight-bold text-primary">Room Used</h6>
 					<div class="col-md-4 ml-auto">
 						<div class="row">
-							<select name="" class="form-control col-md-5 mr-2" id="">
+							<select name="" class="form-control col-md-5 mr-2" id="roomStatus">
 								<option value="" disabled selected>All</option>
-								<option value="">Kosong</option>
-								<option value="">Diperbaiki</option>
-								<option value="">Booking</option>
-								<option value="">Terisi</option>
+								<option value="0">Diperbaiki</option>
+								<option value="1">Kosong</option>
+								<option value="2">Booking</option>
+								<option value="3">Terisi</option>
 							</select>
-							<select name="" class="form-control col-md-5" id="">
+							<select name="" class="form-control col-md-5" id="roomLantai">
 								<option value="" disabled selected>Lantai</option>
-								<option value="">Lantai 1</option>
-								<option value="">Lantai 2</option>
-								<option value="">Lantai 3</option>
+								<option value="2">Lantai 2</option>
+								<option value="3">Lantai 3</option>
 							</select>
 						</div>
 					</div>
@@ -180,9 +179,6 @@
 								foreach ($room as $row) :  ?>
 									<div class="col-md-3 room-view">
 										<div class="dropdown no-arrow text-center">
-											<div class="form-check">
-												<input class="form-check-input" type="checkbox" value="<?= $row['kode_kamar'] ?>" data-id="<?= $row['kode_kamar'] ?>" id="pilih-<?= $no4++ ?>">
-											</div>
 											<a class="dropdown-toggle kasur text-decoration-none" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 												<?php if ($row['status'] == 1) : ?>
 													<i class="fas fa-bed fa-fw text-success"></i>
@@ -229,21 +225,23 @@
 												<?php elseif ($row['status'] == 3) : ?>
 													<?php
 													$kamar = $row['id'];
-													$query = "SELECT tb_reservasi.*,tb_customer.*,tb_reservasi_room.* from tb_reservasi left join tb_customer on tb_reservasi.customer_id = tb_customer.id left join tb_reservasi_room on tb_reservasi_room.reservasi_id = tb_reservasi.id where tb_reservasi_room.room_id = $kamar";
+													$query = "SELECT tb_reservasi.*,tb_customer.*,tb_reservasi_room.* from tb_reservasi left join tb_customer on tb_reservasi.customer_id = tb_customer.id left join tb_reservasi_room on tb_reservasi_room.reservasi_id = tb_reservasi.id where tb_reservasi_room.room_id = '$kamar' AND tb_reservasi.status = 1";
 													$user = $this->db->query($query)->row_array();
 													?>
-													<div class="row">
-														<div class="dropdown-header"><?= $row['nama_kamar'] ?></div>
-														<a class="dropdown-item" href="#">NIK :<?= $user['nik'] ?></a>
-														<a class="dropdown-item" href="#">Nama :<?= $user['nama'] ?></a>
-														<a class="dropdown-item" href="#">Kode Reservasi :<?= $user['kode_reservasi'] ?></a>
-														<!-- <p id="reservasi_code-<?= $no3++ ?>"><?= $user['kode_reservasi'] ?></p> -->
-														<a class="dropdown-item" href="#">Checkin : <?= strftime("%A %d %B %Y", strtotime($user['checkin_date'])) ?></a>
-														<a class="dropdown-item" href="#">Checkout : <?= strftime("%A %d %B %Y", strtotime($user['checkout_date'])) ?></a>
-														<a class="dropdown-item" href="#">Order Date : <?= strftime("%A %d %B %Y", strtotime($user['tanggal'])) ?></a>
-													</div>
-													<div class="dropdown-divider"></div>
-													<a class="dropdown-item bg-warning text-white" data-toggle="modal" id="checkout-one-<?= $no2++ ?>" data-id="<?= $row['id'] ?>">Checkout</a>
+													<?php if ($user != null) : ?>
+														<div class="row">
+															<div class="dropdown-header"><?= $row['nama_kamar'] ?></div>
+															<a class="dropdown-item" href="#">NIK :<?= $user['nik'] ?></a>
+															<a class="dropdown-item" href="#">Nama :<?= $user['nama'] ?></a>
+															<a class="dropdown-item" href="#">Kode Reservasi :<?= $user['kode_reservasi'] ?></a>
+															<!-- <p id="reservasi_code-<?= $no3++ ?>"><?= $user['kode_reservasi'] ?></p> -->
+															<a class="dropdown-item" href="#">Checkin : <?= strftime("%A %d %B %Y", strtotime($user['checkin_date'])) ?></a>
+															<a class="dropdown-item" href="#">Checkout : <?= strftime("%A %d %B %Y", strtotime($user['checkout_date'])) ?></a>
+															<a class="dropdown-item" href="#">Order Date : <?= strftime("%A %d %B %Y", strtotime($user['tanggal'])) ?></a>
+														</div>
+														<div class="dropdown-divider"></div>
+														<a class="dropdown-item bg-warning text-white" data-toggle="modal" id="checkout-one-<?= $no2++ ?>" data-id="<?= $row['id'] ?>" data-reservasi-code="<?= $user['kode_reservasi'] ?>">Checkout</a>
+													<?php endif; ?>
 												<?php elseif ($row['status'] == 0) : ?>
 													<a class="dropdown-item" href="#">On Repair</a>
 												<?php endif; ?>
@@ -277,9 +275,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="card-footer py-3 d-flex flex-row align-items-center justify-content-between">
-					<button class="btn btn-primary btn-sm" id="btnPilih">Pilih Room</button>
-				</div>
+
 			</div>
 			<!-- Request Item -->
 			<div class="card shadow mb-4">
@@ -366,27 +362,17 @@
 </div>
 <!-- /.container-fluid -->
 
-<!-- <div class="modal-header">
-		<h5 class="modal-title" id="kategori"><?= $row['nama_kategori'] ?></h5>
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div> -->
-
-<!-- </div> -->
-
 <!-- Modal Reservasi -->
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg room_modal" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg room_modal " id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
 		<div class="modal-content" id="checkin-modal">
 
 		</div>
-
 	</div>
 </div>
 
-<div class="modal fade bd-example-modal-lg room_modal" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg room_modal " id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
 		<div class="modal-content" id="checkout-modal">
 
@@ -429,21 +415,21 @@
 		}
 	});
 
-	function getSelected() {
-		var room_length = document.getElementsByClassName('room-view').length;
-		var selcbox = [];
+	// function getSelected() {
+	// 	var room_length = document.getElementsByClassName('room-view').length;
+	// 	var selcbox = [];
 
-		for (var f = 0; f < room_length; f++) {
-			var inpfields = document.getElementById('pilih-' + f);
-			var nr_inpfields = inpfields.length;
-		}
+	// 	for (var f = 0; f < room_length; f++) {
+	// 		var inpfields = document.getElementById('pilih-' + f);
+	// 		var nr_inpfields = inpfields.length;
+	// 	}
 
-		for (var i = 0; i < nr_inpfields; i++) {
-			if (inpfields[i].type == 'checkbox' && inpfields[i].checked == true) selchbox.push(inpfields[i].value);
-		}
-		return nr_inpfields;
+	// 	for (var i = 0; i < nr_inpfields; i++) {
+	// 		if (inpfields[i].type == 'checkbox' && inpfields[i].checked == true) selchbox.push(inpfields[i].value);
+	// 	}
+	// 	return nr_inpfields;
 
-	}
+	// }
 
 
 	$(document).ready(function() {
@@ -590,25 +576,53 @@
 			$('#checkout-one-' + v).on('click', function(e) {
 				e.preventDefault();
 				const id_room = $(this).data('id');
-				var reservasi_code = $('#reservasi_code-' + v).text();
+				const reservasi_code = $(this).data('reservasi-code');
 				console.log(reservasi_code)
-				// $.ajax({
-				// 	url: '<?= base_url('admin/modal_checkout/') ?>' + id_room,
-				// 	// data: {
-				// 	// 	reservasi_code:
-				// 	// },
-				// 	dataType: 'html',
-				// 	success: function(data) {
-				// 		$('#checkout-modal').html(data);
-				// 		$('#modal2').modal('show');
-				// 	}
-				// })
+				$.ajax({
+					url: '<?= base_url('admin/modal_checkout/') ?>' + id_room,
+					type: 'post',
+					data: {
+						reservasi_code: reservasi_code
+					},
+					dataType: 'html',
+					success: function(data) {
+						$('#checkout-modal').html(data);
+						$('#modal2').modal('show');
+					}
+				})
 			})
 		}
 
 		$('#btnPilih').on('click', function() {
 			var selek = getSelected();
 			alert(selek)
+		})
+
+		$('#roomStatus').on('change', function() {
+			const status = $(this).val();
+			$.ajax({
+				url: '<?= base_url('admin/reservasi') ?>',
+				type: 'post',
+				data: {
+					status: status
+				},
+				success: function(data) {
+					console.log(data)
+				}
+			})
+		})
+		$('#roomLantai').on('change', function() {
+			const lantai = $(this).val();
+			$.ajax({
+				url: '<?= base_url('admin/reservasi') ?>',
+				type: 'post',
+				data: {
+					lantai: lantai
+				},
+				success: function(data) {
+					console.log(data)
+				}
+			})
 		})
 
 	})

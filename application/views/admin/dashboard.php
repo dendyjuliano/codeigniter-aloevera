@@ -71,7 +71,7 @@
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
 							<div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Transaction NotChecked</div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800"><?= $transaction_row; ?></div>
+							<div class="h5 mb-0 font-weight-bold text-gray-800"></div>
 						</div>
 						<div class="col-auto">
 							<i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -146,173 +146,7 @@
 					</div>
 				<?php endif; ?>
 			</div>
-			<div class="card shadow mb-4">
-				<!-- Card Header - Dropdown -->
-				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h6 class="m-0 font-weight-bold text-primary">Transaction Not Checked</h6>
-				</div>
-				<!-- Card Body -->
-				<?php if (count($transaction) > 0) : ?>
-					<div class="card-body">
-						<table class="table text-center" width="100%" cellspacing="0">
-							<thead>
-								<tr>
-									<th>Nomor Pesanan</th>
-									<th>Order Date</th>
-									<th>Email</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php
-								$no = 1;
-								setlocale(LC_ALL, 'id-ID', 'id_ID');
-								foreach ($transaction as $ad) :
-								?>
-									<tr>
-										<td><?= $ad['nomor_pesanan'] ?></td>
-										<td><?= strftime("%A %d %B %Y", strtotime($ad['tgl_pesanan']))  ?></td>
-										<td><?= $ad['email_customer'] ?></td>
-										<td>
-											<a class="btn btn-danger tombol-hapus" href="<?= base_url('admin/delete_transaction/') ?><?= $ad['id'] ?>"><i class="fas fa-trash"></i></a>
-											<a class="btn btn-success" href="<?= base_url('admin/send_email/') ?><?= $ad['id'] ?>"><i class="fas fa-share-square"></i></a>
-										</td>
-									</tr>
-								<?php endforeach; ?>
-							</tbody>
-						</table>
-					</div>
-				<?php else : ?>
-					<div class="card-body">
-						<table class="table text-center" width="100%" cellspacing="0">
-							<thead>
-								<tr>
-									<th>Nomor Pesanan</th>
-									<th>Order Date</th>
-									<th>Email</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td colspan="5">No Room Transaction Result</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				<?php endif; ?>
-			</div>
-			<div class="card shadow mb-4">
-				<!-- Card Header - Dropdown -->
-				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h6 class="m-0 font-weight-bold text-primary">Payment Not Checked</h6>
-				</div>
-				<!-- Card Body -->
-				<?php if (count($payment) > 0) : ?>
-					<div class="card-body">
-						<table class="table text-center" width="100%" cellspacing="0">
-							<thead>
-								<tr>
-									<th>Code Payment</th>
-									<th>Name</th>
-									<th>QR Code</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php
-								$no = 1;
-								foreach ($payment as $ad) :
-								?>
-									<tr>
-										<td><?= $no++ ?></td>
-										<td><?= $ad['kode_pembayaran'] ?></td>
-										<td><?= $ad['nama_customer'] ?></td>
-										<td><img src="<?= base_url() . 'uploads/' . $ad['qr_code'] ?>" width="100" alt=""></td>
-										<td>
-											<a class="btn btn-danger tombol-hapus" href="<?= base_url('admin/delete_payment/') ?><?= $ad['kode_pembayaran'] ?>"><i class="fas fa-trash"></i></a>
-											<a class="btn btn-primary" href="<?= base_url('admin/detail_payment/') ?><?= $ad['kode_pembayaran'] ?>"><i class="fas fa-share-square"></i></a>
-										</td>
-									</tr>
-								<?php endforeach; ?>
-							</tbody>
-						</table>
-					</div>
-				<?php else : ?>
-					<div class="card-body">
-						<table class="table text-center" width="100%" cellspacing="0">
-							<thead>
-								<tr>
-									<th>Code Payment</th>
-									<th>Name</th>
-									<th>QR Code</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td colspan="5">No Room Payment Result</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				<?php endif; ?>
-			</div>
-			<div class="card shadow mb-4">
-				<!-- Card Header - Dropdown -->
-				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h6 class="m-0 font-weight-bold text-primary">Transfer Not Checked</h6>
-				</div>
-				<!-- Card Body -->
-				<?php if (count($not_transfer) > 0) : ?>
-					<div class="card-body">
-						<table class="table text-center" width="100%" cellspacing="0">
-							<thead>
-								<tr>
-									<th>Code Payment</th>
-									<th>Name</th>
-									<th>QR Code</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php
-								$no = 1;
-								foreach ($not_transfer as $ad) :
-								?>
-									<tr>
-										<td><?= $no++ ?></td>
-										<td><?= $ad['kode_pembayaran'] ?></td>
-										<td><?= $ad['nama_customer'] ?></td>
-										<td>
-											<a class="btn btn-danger tombol-hapus" href="<?= base_url('admin/delete_payment/') ?><?= $ad['kode_pembayaran'] ?>"><i class="fas fa-trash"></i></a>
-											<a class="btn btn-primary" href="<?= base_url('admin/detail_payment/') ?><?= $ad['kode_pembayaran'] ?>"><i class="fas fa-share-square"></i></a>
-										</td>
-									</tr>
-								<?php endforeach; ?>
-							</tbody>
-						</table>
-					</div>
-				<?php else : ?>
-					<div class="card-body">
-						<table class="table text-center" width="100%" cellspacing="0">
-							<thead>
-								<tr>
-									<th>Code Payment</th>
-									<th>Name</th>
-									<th>QR Code</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td colspan="5">No Room Payment Result</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				<?php endif; ?>
-			</div>
+
 		</div>
 
 		<!-- Pie Chart -->
@@ -330,36 +164,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="card shadow mb-4">
-				<!-- Card Header - Dropdown -->
-				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h6 class="m-0 font-weight-bold text-primary">Transfer</h6>
-				</div>
-				<!-- Card Body -->
-				<div class="card-body">
-					<table class="table text-center" width="100%" cellspacing="0">
-						<thead>
-							<tr>
-								<th>No</th>
-								<th>Code Payment</th>
-								<th>Name</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-							$no = 1;
-							foreach ($transfer as $ad) :
-							?>
-								<tr>
-									<td><?= $no++ ?></td>
-									<td><?= $ad['kode_pembayaran'] ?></td>
-									<td><?= $ad['pemilik_rekening'] ?></td>
-								</tr>
-							<?php endforeach; ?>
-						</tbody>
-					</table>
-				</div>
-			</div>
+
 		</div>
 	</div>
 
