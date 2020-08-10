@@ -1,7 +1,7 @@
 <div class="modal-body noprint" id="defaultForm">
 	<div class="row">
 		<div class="col-md-4 my-auto">
-			<img src="<?= base_url('assets/img/logoAloevera.png') ?>" width="400" class="img-fluid" alt="">
+			<img src="<?= base_url('assets/img/logoAloevera.png') ?>" width="300" class="img-fluid" alt="">
 		</div>
 		<div class="col-md-8">
 			<div class="form-row">

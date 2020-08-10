@@ -172,27 +172,34 @@
 					<?php endforeach; ?>
 				</div>
 				<div class="col-md-4 my-3">
-					<div class="tampilan" id="viewRoomCount">
-						<div class="roomEmpity card">
-							<div class="card-header text-center">
-								<h5><i class="fas fa-shopping-cart"></i> &nbsp; No Room Selected</h5>
-							</div>
-							<div class="card-body text-center">
-								PLEASE CHOSE ACCOMODATION
-							</div>
-						</div>
-					</div>
-					<div class="total text-center card pt-3 pb-2 my-auto">
-						<div class="row ">
-							<div class="col-md-6">
-								<h4><b>TOTAL</b></h4>
-							</div>
-							<div class="col-md-6">
-								<h4><b></b></h4>
+					<form action="<?= base_url('home/bookingInformation') ?>" method="post">
+						<div class="tampilan" id="viewRoomCount">
+							<div class="roomEmpity card">
+								<div class="card-header text-center">
+									<h5><i class="fas fa-shopping-cart"></i> &nbsp; No Room Selected</h5>
+								</div>
+								<div class="card-body text-center">
+									PLEASE CHOSE ACCOMODATION
+								</div>
 							</div>
 						</div>
-					</div>
-					<button class="btn view-btn1 float-right btn-sm btn-block" onclick="bookingRoom()" id="book">NEXT</button>
+						<div class="total text-center card pt-3 pb-2 my-auto">
+							<input name="checkinDate" hidden value="<?= $checkinDate ?>" />
+							<input name="checkoutDate" hidden value="<?= $checkoutDate ?>" />
+							<input name="adults" hidden value="<?= $adults ?>" />
+							<input name="children" hidden value="<?= $children ?>" />
+							<input name="room" hidden value="<?= $room ?>" />
+							<div class="row ">
+								<div class="col-md-6">
+									<h4><b>TOTAL</b></h4>
+								</div>
+								<div class="col-md-6">
+									<h4><b></b></h4>
+								</div>
+							</div>
+						</div>
+						<button type="submit" class="btn view-btn1 float-right btn-sm btn-block" id="book">NEXT</button>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -235,32 +242,6 @@
 <script>
 	const arry = [];
 	var totalPrice = 0;
-
-	function bookingRoom() {
-		const checkinDate = $('#datepicker1').val();
-		const checkoutDate = $('#datepicker2').val();
-		const adults = $('#select1').val();
-		const children = $('#select2').val();
-		const room = $('#select3').val();
-		const urlSelectRoom = "<?= base_url('home/selectRoom/') ?>";
-
-		$.ajax({
-			url: urlSelectRoom,
-			method: "GET",
-			data: {
-				checkinDate: checkinDate,
-				checkoutDate: checkoutDate,
-				adults: adults,
-				children: children,
-				room: room,
-			},
-			dataType: 'JSON',
-			success: function(data) {
-				window.location.replace("<?= base_url('home/bookingInformation/') ?>" + data.checkinDate + "/" + data.checkoutDate + "/" + data.adults + "/" + data.children + "/" + data.room);
-
-			}
-		})
-	}
 
 	function getDateReservation() {
 		const checkinDate = $('#datepicker1').val();
@@ -310,7 +291,6 @@
 			} else {
 				btnBook.prop('disabled', false);
 			}
-			console.log(i)
 		}
 	}
 

@@ -116,28 +116,26 @@
 						<thead style="background-color: #dca73a;font-size: 14px;">
 							<tr>
 								<th>RATE</th>
+								<th>OCCUPANCI</th>
 								<th>CHECKIN</th>
 								<th>CHECKOUT</th>
 								<th class="text-right">AMMOUNT</th>
 							</tr>
 						</thead>
-						<tbody style="background-color: #fff;font-size: 14px;">
-							<?php for ($i = 1; $i < 2; $i++) : ?>
+						<tbody style="background-color: #fff;font-size: 14px;" id="tableBody">
+							<?php foreach ($selectRoom as $row) : ?>
 								<tr>
-									<td>DELUXE TWIN ROOM ONLY - FLASH DEAL</td>
-									<td>07/08/2020</td>
-									<td>08/08/2020</td>
-									<td class="text-right">IDR 473,763</td>
-								</tr>
-								<tr>
-									<td colspan="3">SUB TOTAL</td>
-									<td class="text-right">IDR 473,763</td>
+									<td><?= $row['roomArray'][0]['nama_kategori'] ?></td>
+									<td><?= $adults ?> Adults,<?= $children ?> chld,<?= $room ?> Room</td>
+									<td><?= $checkinDate ?></td>
+									<td><?= $checkoutDate ?></td>
+									<td class="text-right">Rp. <?= number_format($row['roomArray'][0]['subtotal'], 0, ',', '.') ?></td>
 								</tr>
 								<tr style="background-color: #f1f2f6;">
-									<td colspan="3"><b>TOTAL</b></td>
-									<td class="text-right"><b>IDR 473,763</b></td>
+									<td colspan="4">SUB TOTAL</td>
+									<td class="text-right" id="subtotal"><?= $row['roomArray'][0]['subtotal'] ?></td>
 								</tr>
-							<?php endfor; ?>
+							<?php endforeach; ?>
 						</tbody>
 					</table>
 				</div>
@@ -145,7 +143,7 @@
 					<thead style="background-color: #dca73a;font-size: 14px;">
 						<tr>
 							<th>GRAND TOTAL</th>
-							<th class="text-right">IDR 473,763</th>
+							<th class="text-right" id="total"></th>
 						</tr>
 					</thead>
 				</table>
@@ -158,16 +156,23 @@
 				<div class="col-md-12 mt-5">
 					<form action="" method="post">
 						<div class="form-group">
-							<label for="">Nama Lengkap</label>
+							<label for="">Metode Pembayaran <span class="text-danger">*</span> </label><br>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+								<label class="form-check-label" for="inlineRadio1">Transfer</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+								<label class="form-check-label" for="inlineRadio2">Bayar Saat Checkin</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="">Nama Lengkap <span class="text-danger">*</span></label>
 							<input class="form-control" name="subject" id="subject" type="text">
 						</div>
 						<div class="form-group">
-							<label for="">Email</label>
+							<label for="">Email <span class="text-danger">*</span></label>
 							<input class="form-control" name="subject" id="subject" type="text">
-						</div>
-						<div class="form-group">
-							<label for="">Alamat</label>
-							<textarea class="form-control w-100" name="message" id="message" cols="30" rows="7" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder=" Enter Message"></textarea>
 						</div>
 						<div class="form-group">
 							<label for="">Kota</label>
@@ -177,8 +182,16 @@
 							<label for="">No Hp</label>
 							<input class="form-control" name="subject" id="subject" type="text">
 						</div>
+						<div class="form-group">
+							<label for="">Alamat</label>
+							<textarea class="form-control w-100" name="message" id="message" cols="30" rows="7" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder=" Enter Message"></textarea>
+						</div>
 						<div class="form-group text-center mt-5">
-							<a class="btn">Confirm Reservation</a>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" id="exampleCheck1">
+								<label class="form-check-label" for="exampleCheck1">Saya telah membaca Syarat & Ketentuan membayar sesuai dengan ketentuan yang disebutkan.</label>
+							</div>
+							<a class="btn mt-2">Confirm Reservation</a>
 						</div>
 					</form>
 				</div>
@@ -213,4 +226,18 @@
 			}
 		})
 	}
+
+	var total = 0;
+
+	function getTotal() {
+		total += parseInt($('#tableBody tr:last-child tr:nth-child(2) td:nth-child(2)').html());
+		var reverse = total.toString().split('').reverse().join(''),
+			ribuan = reverse.match(/\d{1,3}/g);
+		ribuan = ribuan.join('.').split('').reverse().join('');
+		console.log(ribuan)
+	}
+
+	$(document).ready(function() {
+		getTotal()
+	})
 </script>

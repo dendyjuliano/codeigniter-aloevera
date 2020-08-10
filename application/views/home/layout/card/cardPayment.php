@@ -8,6 +8,7 @@
 		</div>
 		<div class="col-md-1 pl-2">
 			<a href="#" class="removeRoom" data-category-id="<?= $idCategory ?>">
+				<input type="text" name="selectCategory[]" hidden value="<?= $idCategory ?>">
 				<h4 class="text-danger card-title "><i class="fas fa-times"></i></h4>
 			</a>
 		</div>

@@ -111,7 +111,9 @@
 body {
   font-family: 'Lato', sans-serif;
   font-weight: normal;
-  font-style: normal; }
+	font-style: normal; 
+	align-items: flex-start;
+}
 
 .img {
   max-width: 100%;
@@ -417,6 +419,7 @@ label {
   line-height: 48px;
   border: 2px solid transparent; }
   @media (max-width: 767px) {
+		
     #scrollUp {
       right: 16px; } }
 
@@ -1799,15 +1802,15 @@ label {
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .header-area {
-    padding: 18px 0; } }
+    padding: 0; } }
 
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .header-area {
-    padding: 18px 0; } }
+    padding: 0; } }
 
 @media (max-width: 767px) {
   .header-area {
-    padding: 18px 0; } }
+    padding: 0; } }
 
 .main-header {
   position: relative;
@@ -4030,6 +4033,7 @@ h3 {
       width: 320px;
       padding: 45px 30px; } }
   @media only screen and (min-width: 480px) and (max-width: 767px) {
+
     .popup_box {
       width: 420px !important;
       padding: 45px 30px; } }

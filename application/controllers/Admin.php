@@ -343,7 +343,9 @@ class Admin extends CI_Controller
 		$harga = $_POST['harga'];
 		$room_id = $_POST['room_id'];
 
-		$reservation_room = $this->db->get_where('tb_reservasi_room', ['room_id' => $room_id])->row_array();
+		$query = "SELECT tb_reservasi.*,tb_reservasi_room.* FROM tb_reservasi JOIN tb_reservasi_room ON tb_reservasi_room.reservasi_id = tb_reservasi.id WHERE tb_reservasi.status = 1 AND tb_reservasi_room.room_id = '$room_id'";
+		// $reservation_room = $this->db->get_where('tb_reservasi_room', ['room_id' => $room_id])->row_array();
+		$reservation_room = $this->db->query($query)->row_array();
 		$reservation_room_id = $reservation_room['id'];
 		//cek
 		$cek_request_item = $this->db

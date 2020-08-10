@@ -120,7 +120,6 @@ class Home extends CI_Controller
 
 		$this->email->initialize($config);
 
-
 		$this->email->from($emailForm);
 		$this->email->to('dendijuliano2016@gmail.com');
 
@@ -158,8 +157,8 @@ class Home extends CI_Controller
 	{
 		$checkinDate = strtotime($this->input->post('checkinDate'));
 		$checkoutDate = strtotime($this->input->post('checkoutDate'));
-		// $adults = $this->input->post('adults');
-		// $children = $this->input->post('children');
+		$adults = $this->input->post('adults');
+		$children = $this->input->post('children');
 		$room = $this->input->post('room');
 		$idCategory = $this->input->post('idCategory');
 		$roomById = $this->M_home->getCategoryById($idCategory);
@@ -182,20 +181,62 @@ class Home extends CI_Controller
 			'roomName' => $roomById['nama_kategori'],
 			'days' => $days,
 			'subtotalPrice' =>  number_format($subtotalPrice, 0, ',', '.'),
+			//Reservation
+			'checkinDate' => $checkinDate,
+			'checkoutDate' => $checkoutDate,
+			'adults' => $adults,
+			'children' => $children
 		);
 
 		$this->load->view('home/layout/card/cardPayment', $data);
 	}
 
-	public function bookingInformation($checkinDate, $checkoutDate, $adults, $children, $room)
+	public function bookingInformation()
 	{
+		$checkinDate = $this->input->post('checkinDate');
+		$checkoutDate = $this->input->post('checkoutDate');
+		$checkinDate2 = strtotime($this->input->post('checkinDate'));
+		$checkoutDate2 = strtotime($this->input->post('checkoutDate'));
+		$adults = $this->input->post('adults');
+		$children = $this->input->post('children');
+		$room = $this->input->post('room');
+		$selectCategory = $this->input->post('selectCategory');
+		// Formulate the Difference between two dates 
+		$diff = abs($checkoutDate2 - $checkinDate2);
+		$years = floor($diff / (365 * 60 * 60 * 24));
+		$months = floor(($diff - $years * 365 * 60 * 60 * 24)
+			/ (30 * 60 * 60 * 24));
+		$days = floor(($diff - $years * 365 * 60 * 60 * 24 -
+			$months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+		$dataArray = array();
+		$i = 0;
+
+		foreach ($selectCategory as $key) {
+			array_push($dataArray, array(
+				'selectRoom' => $key,
+			));
+			$i++;
+		}
+
+		$roomArray = array();
+		foreach ($dataArray as $id) {
+			$query = "SELECT tb_kategori.*, SUM(harga) * $days * $room as subtotal FROM tb_kategori WHERE id = '$id[selectRoom]'";
+			$sample = $this->db->query($query)->result_array();
+			array_push($roomArray, array(
+				'roomArray' => $sample
+			));
+			$i++;
+		}
+
 		$data = [
 			'roomCategory' => $this->M_home->getCategory(),
-			'checkinDate' => date("m/d/Y", strtotime($checkinDate)),
-			'checkoutDate' => date("m/d/Y", strtotime($checkoutDate)),
+			'checkinDate' => date("d-m-Y", strtotime($checkinDate)),
+			'checkoutDate' => date("d-m-Y", strtotime($checkoutDate)),
 			'adults' => $adults,
 			'children' => $children,
 			'room' => $room,
+			'selectRoom' => $roomArray,
 			'title' => "Booking Detail",
 		];
 
